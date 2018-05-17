@@ -1,0 +1,62 @@
+<!DCTYPE html>
+<html>
+<head>
+  <title>SpotEv Backend Exercise</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="spotev.js"></script>
+  <style>
+     #alertMSG{
+	display:none;
+	position:fixed;
+	top:40%;
+	left:30%;
+	z-index:20;
+	padding:15px;
+	font-size:18px;
+	font-weight:bold;
+	text-align:center;
+	background-color:rgb(2,189,213);
+	min-width:500px;
+	height:auto;
+    color:#fff;
+	box-shadow: 10px 10px 5px #888888;
+	border:0px solid;
+	border-radius:20px;
+
+}
+  </style>
+</head>
+<body onload="reset();">
+<div class="container">
+    <div class="alert alert-info" style="width:70%;margin:10px auto;">
+       <strong>Info!</strong> We will be programming a simple robot. The robot is composed of a number of blocks and reacts to a simple set of commands, written in a program.
+	   <h5>A program is composed of:</h5>
+       <p>- An integer, the number of blocks the robot contains</p>
+       <p>- A series of commands, one per line.The commands should be like :move A onto B  AND move A over B<br><strong>Exemple:</strong><br> 3,<br>move 2 onto 0,<br>move 1 over 0,<br>quit  </p>
+	   
+       <p>- A quit instruction</p>
+    </div>
+	<div id="alertMSG"></div>
+	<div class="row" style="width:70%;margin:10px auto;">
+	   <div class="col-md-6">
+	       <form>
+           <div class="form-group" >
+               <label for="textarea">Please enter programe:</label>
+               <textarea class="form-control input-lg" id="textarea" rows="6"  ></textarea>
+		       <br><button type="button" onclick="showResult();" >Show Result</button>
+           </div>
+	       </form> 
+	   </div>
+	    <label >Result</label>
+	   <div class="col-md-6" id="result" style="border:1px solid #ccc;min-height:182px;overflow:auto;">
+	   </div>
+    
+	</div>
+</div>
+</body>
+
+</html>

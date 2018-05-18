@@ -1,5 +1,5 @@
 var NumberBlocks;
-var position=new Array();
+var positionBlocks=new Array();
 var blocks=new Array();
 var rep="";
 function reset(){
@@ -15,38 +15,38 @@ function showResult(){
         Vider("alertMSG");
 	}
 	else{
-	var tabInput = inputProgram.split(",");
+	var tabInput = inputProgram.split(",");	
 	for(var i=0;i<tabInput.length;i++){
 	   tabInput[i]=tabInput[i].trim().toLowerCase();
 	}
-	NumberBlocks=tabInput[0];
+	NumberBlocks=parseInt(tabInput[0]);
 	for(var i=0;i<NumberBlocks;i++){
         blocks[i]=new Array();
         blocks[i].push(i);
-        position[i]=i;
+        positionBlocks[i]=i;
     }
 	var i=1;
-	while(tabInput[i]!=="quit"){  //Exit when verb is quit
-             var tabToken=tabInput[i].split(" "); //Parse the commands
+	while(tabInput[i]!=="quit"){  //Exit when command is quit
+             var tabToken=tabInput[i].split(" "); //Parse the command
 			 if(tabToken.length!==4){
 				 $('#alertMSG').html("Command is not correct!");
                  $('#alertMSG').show();
                  Vider("alertMSG");
 				 break;
 			 }
-			 var firstString=tabToken[0];
+			 var firstToken=tabToken[0];
 			 var A=parseInt(tabToken[1]);
-			 var secondString=tabToken[2];
+			 var secondToken=tabToken[2];
 			 var B=parseInt(tabToken[3]);
 
-			 if(A !== B || position[A] !== position[B]){
-			   if(firstString=="move"){
-			   if(secondString=="onto"){
-			      MoveOnto(A,B);
+			 if(A !== B || positionBlocks[A] !== positionBlocks[B]){
+			   if(firstToken=="move"){
+			   if(secondToken=="onto"){
+			      MoveOntoAB(A,B);
 			   }  
 			   else
-               if(secondString=="over")	
-                  MoveOver(A,B);			   
+               if(secondToken=="over")	
+                  MoveOverAB(A,B);			   
 			 }
 		     } 
 			 else{
@@ -69,31 +69,31 @@ function showResult(){
 	    document.getElementById("result").innerHTML=rep;
 	}
 }
-//////////////////////////////MoveOnto()////////
-function MoveOnto(A,B){
-    ClearAbove(B);
-    MoveOver(A,B);
+//////////////////////////////MoveOntoAB()////////
+function MoveOntoAB(A,B){
+    popLast(B);
+    MoveOverAB(A,B);
 }
-//////////////////////////////MoveOver()///////
-function MoveOver(A,B){
-   ClearAbove(A);
-   //Remove stack a from its current position and Stack stack a onto the top of stack b
-   blocks[position[B]].push(blocks[position[A]].pop()); 
-   position[A] = position[B];
+//////////////////////////////MoveOverAB()///////
+function MoveOverAB(A,B){
+   popLast(A);
+   //Remove stack A from its current position and Stack stack A onto the top of stack B
+   blocks[positionBlocks[B]].push(blocks[positionBlocks[A]].pop()); 
+   positionBlocks[A] = positionBlocks[B];
 }
-/////////////////////////////ClearAbove()////////////
-function ClearAbove(block){
-    while(blocks[position[block]][blocks[position[block]].length-1]!=block){
-         Intial(blocks[position[block]].pop());
+/////////////////////////////popLast()////////////
+function popLast(block){
+    while(blocks[positionBlocks[block]][blocks[positionBlocks[block]].length-1]!=block){
+		  initialization(blocks[positionBlocks[block]].pop()); 
    }
 }
-/////////////////////////////Intial()//////////
-function Intial(block){   
+/////////////////////////////popLast()////////////
+function initialization(block){   
         while(blocks[block].length!=0) {
-           Intial(blocks[block].pop());
+           initialization(blocks[block].pop());
         }
         blocks[block].push(block);
-        position[block] =block;
+        positionBlocks[block] =block;
 }
 ////////////////////Vider()////////////////////////
 function Vider(elem){
